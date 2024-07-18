@@ -1,6 +1,8 @@
 # Sales-Analytics-Pizza-Sales-Dashboard
 A comprehensive sales analysis project featuring a dashboard that visualizes pizza sales data. This project demonstrates skills in data analysis, visualization, and predictive modeling.
 
+<img src = "https://github.com/Frances-Odunaiya/Home/blob/main/images/Portfolio-1.png" alt = "Pizza Sales Dashboard"/>
+
 ## Introduction
 The Pizza Sales Dashboard Project aims to analyze pizza sales data using SQL queries and visualize the insights through an interactive dashboard created with Power BI. By combining SQL for data analysis and Power BI for visualization, this project provides a comprehensive solution for understanding and presenting pizza sales trends, customer preferences, and revenue metrics.
 

@@ -1,5 +1,5 @@
 # Sales-Analytics-Pizza-Sales-Dashboard
-A comprehensive sales analysis project featuring a dashboard that visualizes pizza sales data. This project demonstrates skills in data analysis, visualization, and predictive modeling.
+A comprehensive sales analysis project featuring a dashboard that visualizes pizza sales data. This project demonstrates skills in data analysis, and  visualization.
 
 <img src = "https://github.com/Frances-Odunaiya/Home/blob/main/images/Portfolio-1.png" alt = "Pizza Sales Dashboard"/>
 

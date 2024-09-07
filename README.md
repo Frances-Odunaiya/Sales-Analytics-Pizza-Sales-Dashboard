@@ -46,7 +46,7 @@ We need to analyze key indicators for our pizza sales data to gain insights into
       FROM [dbo].[Pizza_Sales] 
       GROUP BY [pizza_category]
 
-      /* Using Filter */
+      # Using Filter
 
       SELECT [pizza_category], SUM([total_price]) AS Total_Sales, SUM([total_price]) * 100 / 
       (SELECT SUM([total_price]) FROM [dbo].[Pizza_Sales] WHERE MONTH([order_date]) = 1) AS PCT_Total_Sales

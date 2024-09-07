@@ -14,23 +14,23 @@ We need to analyze key indicators for our pizza sales data to gain insights into
 1. **Total Revenue**: The sum of the total price of all pizza orders.
    ```sql
       SELECT CAST(SUM([total_price]) AS DECIMAL(10,2)) AS Total_Revenue FROM [dbo].[Pizza_Sales]
-   ```
+ 
 2. **Average Order Value**: The average amount spent per order, calculated by dividing the total revenue by the total number of orders.
    ```sql
       SELECT CAST(CAST(SUM([total_price]) AS DECIMAL(10,2)) / CAST(COUNT(DISTINCT [order_id]) AS DECIMAL(10,2)) AS DECIMAL(10,2)) AS Avg_Order_Value FROM [dbo].[Pizza_Sales]
-   ```
+  
 3. **Total Pizzas Sold**: The sum of the quantities of all pizzas sold.
    ```sql
       SELECT SUM([quantity]) AS Total_Pizza_Sold FROM [dbo].[Pizza_Sales]
-   ```
+ 
 4. **Total Orders**: The total number of orders placed.
    ```sql
       SELECT COUNT(DISTINCT [order_id]) AS Total_Orders FROM [dbo].[Pizza_Sales]
-   ```
+   
 5. **Average Pizzas Per Order**: The average number of pizzas sold per order, calculated by dividina the total number of pizzas sold by the total number of orders.
    ```sql
       SELECT CAST(CAST(SUM([quantity]) AS DECIMAL(10,2)) / CAST(COUNT(DISTINCT [order_id]) AS DECIMAL(10,2)) AS DECIMAL(10,2)) AS Avg_Pizza_Per_Order FROM [dbo].[Pizza_Sales]
-   ```
+ 
 *Charts Requirement*
 
 1. **Percentage of Sales by Pizza Size**: This chart will help us understand customer preferences for pizza sizes and their impact on sales.
@@ -39,7 +39,7 @@ We need to analyze key indicators for our pizza sales data to gain insights into
       FROM [dbo].[Pizza_Sales]
       GROUP BY [pizza_size]
       ORDER BY [pizza_size]
-   ```
+ 
 2. **Total Pizzas Sold by Pizza Category**: This chart will allow us to compare the sales performance of different pizza categories.
    ```sql
       SELECT [pizza_category], SUM([total_price]) AS Total_Sales, SUM([total_price]) * 100 / (SELECT SUM([total_price]) FROM [dbo].[Pizza_Sales]) AS PCT_Total_Sales
@@ -53,7 +53,7 @@ We need to analyze key indicators for our pizza sales data to gain insights into
       FROM [dbo].[Pizza_Sales]
       WHERE MONTH([order_date]) = 1
       GROUP BY [pizza_category]
-   ```
+ 
 3. **Top 5 Best Sellers by Revenue, Total Quantity and Total Orders**: This chart will help us identity the most popular pizza options.
    ```sql
       # By Revenue
@@ -73,7 +73,7 @@ We need to analyze key indicators for our pizza sales data to gain insights into
       FROM [dbo].[Pizza_Sales]
       GROUP BY [pizza_name]
       ORDER BY Total_Orders DESC
-   ```
+   
 4. **Bottom 5 Best Sellers by Revenue, Total Quantity and Total Orders**: This chart will enable us to identify underperforming or less popular pizza options.
     ```sql
        # By Revenue
@@ -93,7 +93,7 @@ We need to analyze key indicators for our pizza sales data to gain insights into
        FROM [dbo].[Pizza_Sales]
        GROUP BY [pizza_name]
        ORDER BY Total_Orders ASC
-   ```
+ 
 ## Features
 
 - **Data Extraction with SQL**: Utilize SQL queries to extract data from the pizza sales database.

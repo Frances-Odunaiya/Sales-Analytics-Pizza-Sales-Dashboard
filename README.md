@@ -12,37 +12,84 @@ The Pizza Sales Dashboard Project aims to analyze pizza sales data using SQL que
 
 We need to analyze key indicators for our pizza sales data to gain insights into our business performance. Specifically, we want to calculate the following metrics:
 1. **Total Revenue**: The sum of the total price of all pizza orders.
-2. **Average Order Value**: The average amount spent per order, calculated by dividing the total revenue by the total number of orders.
-3. **Total Pizzas Sold**: The sum of the quantities of all pizzas sold.
-4. **Total Orders**: The total number of orders placed.
-5. **Average Pizzas Per Order**: The average number of pizzas sold per order, calculated by dividina the total number of pizzas sold by the total number of orders.
-
-1. **Total Revenue**:
-      ```bash
+   ```bash
       SELECT CAST(SUM([total_price]) AS DECIMAL(10,2)) AS Total_Revenue FROM [dbo].[Pizza_Sales]
-
-2. **Average Order Value**:
-     ```bash
+2. **Average Order Value**: The average amount spent per order, calculated by dividing the total revenue by the total number of orders.
+   ```bash
      SELECT CAST(CAST(SUM([total_price]) AS DECIMAL(10,2)) / CAST(COUNT(DISTINCT [order_id]) AS DECIMAL(10,2)) AS DECIMAL(10,2)) AS Avg_Order_Value FROM [dbo].[Pizza_Sales]
 
-3. **Total Pizzas Sold**:
-     ```bash
+3. **Total Pizzas Sold**: The sum of the quantities of all pizzas sold.
+   ```bash
      SELECT SUM([quantity]) AS Total_Pizza_Sold FROM [dbo].[Pizza_Sales]
-
-4. **Total Orders**:
+4. **Total Orders**: The total number of orders placed.
    ```bash
      SELECT COUNT(DISTINCT [order_id]) AS Total_Orders FROM [dbo].[Pizza_Sales]
-
-5. **Average Pizzas Per Order**:
+5. **Average Pizzas Per Order**: The average number of pizzas sold per order, calculated by dividina the total number of pizzas sold by the total number of orders.
    ```bash
      SELECT CAST(CAST(SUM([quantity]) AS DECIMAL(10,2)) / CAST(COUNT(DISTINCT [order_id]) AS DECIMAL(10,2)) AS DECIMAL(10,2)) AS Avg_Pizza_Per_Order FROM [dbo].[Pizza_Sales]
-
+   
 *Charts Requirement*
 
-4. **Percentage of Sales by Pizza Size**: This chart will help us understand customer preferences for pizza sizes and their impact on sales.
-5. **Total Pizzas Sold by Pizza Category**: This chart will allow us to compare the sales performance of different pizza categories.
-6. **Top 5 Best Sellers by Revenue, Total Quantity and Total Orders**: This chart will help us identity the most popular pizza options.
-7. **Bottom 5 Best Sellers by Revenue, Total Quantity and Total Orders**: This chart will enable us to identify underperforming or less popular pizza options.
+1. **Percentage of Sales by Pizza Size**: This chart will help us understand customer preferences for pizza sizes and their impact on sales.
+   ```bash
+     SELECT [pizza_size], CAST(SUM([total_price])AS DECIMAL(10,2)) AS Total_Revenue, CAST(SUM([total_price]) * 100 / (SELECT SUM([total_price]) FROM [dbo].[Pizza_Sales]) AS DECIMAL(10,2)) AS PCT
+     FROM [dbo].[Pizza_Sales]
+     GROUP BY [pizza_size]
+     ORDER BY [pizza_size]
+
+2. **Total Pizzas Sold by Pizza Category**: This chart will allow us to compare the sales performance of different pizza categories.
+   ```bash
+     SELECT [pizza_category], SUM([total_price]) AS Total_Sales, SUM([total_price]) * 100 / (SELECT SUM([total_price]) FROM [dbo].[Pizza_Sales]) AS PCT_Total_Sales
+     FROM [dbo].[Pizza_Sales] 
+     GROUP BY [pizza_category]
+
+     /*Using Filter*/
+
+     SELECT [pizza_category], SUM([total_price]) AS Total_Sales, SUM([total_price]) * 100 / 
+     (SELECT SUM([total_price]) FROM [dbo].[Pizza_Sales] WHERE MONTH([order_date]) = 1) AS PCT_Total_Sales
+     FROM [dbo].[Pizza_Sales]
+     WHERE MONTH([order_date]) = 1
+     GROUP BY [pizza_category]
+
+3. **Top 5 Best Sellers by Revenue, Total Quantity and Total Orders**: This chart will help us identity the most popular pizza options.
+   ```bash
+     /*By Revenue*/
+     SELECT TOP 5 [pizza_name], SUM([total_price]) AS Total_Revenue
+     FROM [dbo].[Pizza_Sales]
+     GROUP BY [pizza_name]
+     ORDER BY Total_Revenue DESC
+
+     /*By Quantity*/
+     SELECT TOP 5 [pizza_name], SUM([quantity]) AS Total_Pizza_Sold
+     FROM [dbo].[Pizza_Sales]
+     GROUP BY [pizza_name]
+     ORDER BY Total_Pizza_Sold DESC
+
+     /*By Total Orders*/
+     SELECT TOP 5 [pizza_name], COUNT(DISTINCT [order_id]) AS Total_Orders
+     FROM [dbo].[Pizza_Sales]
+     GROUP BY [pizza_name]
+     ORDER BY Total_Orders DESC
+
+4. **Bottom 5 Best Sellers by Revenue, Total Quantity and Total Orders**: This chart will enable us to identify underperforming or less popular pizza options.
+    ```bash
+     /*By Revenue*/
+     SELECT TOP 5 [pizza_name], SUM([total_price]) AS Total_Revenue
+     FROM [dbo].[Pizza_Sales]
+     GROUP BY [pizza_name]
+     ORDER BY Total_Revenue ASC
+
+     /*By Quantity*/
+     SELECT TOP 5 [pizza_name], SUM([quantity]) AS Total_Pizza_Sold
+     FROM [dbo].[Pizza_Sales]
+     GROUP BY [pizza_name]
+     ORDER BY Total_Pizza_Sold ASC
+
+     /*By Total Orders*/
+     SELECT TOP 5 [pizza_name], COUNT(DISTINCT [order_id]) AS Total_Orders
+     FROM [dbo].[Pizza_Sales]
+     GROUP BY [pizza_name]
+     ORDER BY Total_Orders ASC
 
 ## Features
 

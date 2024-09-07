@@ -16,7 +16,27 @@ We need to analyze key indicators for our pizza sales data to gain insights into
 3. **Total Pizzas Sold**: The sum of the quantities of all pizzas sold.
 4. **Total Orders**: The total number of orders placed.
 5. **Average Pizzas Per Order**: The average number of pizzas sold per order, calculated by dividina the total number of pizzas sold by the total number of orders.
-   
+
+1. **Total Revenue**:
+      ```bash
+      SELECT CAST(SUM([total_price]) AS DECIMAL(10,2)) AS Total_Revenue FROM [dbo].[Pizza_Sales]
+
+2. **Average Order Value**:
+     ```bash
+     SELECT CAST(CAST(SUM([total_price]) AS DECIMAL(10,2)) / CAST(COUNT(DISTINCT [order_id]) AS DECIMAL(10,2)) AS DECIMAL(10,2)) AS Avg_Order_Value FROM [dbo].[Pizza_Sales]
+
+3. **Total Pizzas Sold**:
+     ```bash
+     SELECT SUM([quantity]) AS Total_Pizza_Sold FROM [dbo].[Pizza_Sales]
+
+4. **Total Orders**:
+   ```bash
+     SELECT COUNT(DISTINCT [order_id]) AS Total_Orders FROM [dbo].[Pizza_Sales]
+
+5. **Average Pizzas Per Order**:
+   ```bash
+     SELECT CAST(CAST(SUM([quantity]) AS DECIMAL(10,2)) / CAST(COUNT(DISTINCT [order_id]) AS DECIMAL(10,2)) AS DECIMAL(10,2)) AS Avg_Pizza_Per_Order FROM [dbo].[Pizza_Sales]
+
 *Charts Requirement*
 
 4. **Percentage of Sales by Pizza Size**: This chart will help us understand customer preferences for pizza sizes and their impact on sales.
